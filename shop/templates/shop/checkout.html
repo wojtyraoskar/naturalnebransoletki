@@ -1,0 +1,16 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Checkout – Naturalne Bransoletki{% endblock %}
+
+{% block content %}
+  <h1 class="text-3xl font-bold text-green-800 mb-8">Dane do zamówienia</h1>
+
+  <form method="post" class="space-y-4 bg-white p-6 rounded shadow">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800 transition">Zamawiam</button>
+  </form>
+
+  <p class="mt-6"><a href="{% url 'view_cart' %}" class="text-green-600 hover:underline">← Wróć do koszyka</a></p>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Koszyk - Naturalne Bransoletki{% endblock %}
+
+{% block content %}
+  <h1 class="text-3xl font-bold text-green-800 mb-8">Twój koszyk</h1>
+
+  {% if cart|length == 0 %}
+    <p>Twój koszyk jest pusty.</p>
+  {% else %}
+    <div class="space-y-6">
+      {% for item in cart %}
+        <div class="bg-white p-4 rounded shadow flex justify-between items-center">
+          <div>
+            <h2 class="text-xl font-semibold">{{ item.product.name }}</h2>
+            <p>Ilość: {{ item.quantity }}</p>
+            <p>Cena jednostkowa: {{ item.price }} zł</p>
+            <p>Razem: {{ item.total_price }} zł</p>
+          </div>
+          <a href="{% url 'remove_from_cart' item.product.id %}" class="text-red-500 hover:text-red-700">🗑️ Usuń</a>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="mt-8 text-right">
+      <p class="text-lg font-bold">Suma: {{ cart.get_total_price }} zł</p>
+      <a href="{% url 'checkout' %}" class="mt-4 inline-block bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800 transition">
+        Przejdź do płatności
+      </a>
+    </div>
+  {% endif %}
+
+  <p class="mt-8"><a href="{% url 'home' %}" class="text-green-600 hover:underline">← Wróć do strony</a></p>
+
+{% endblock %}
