@@ -79,10 +79,11 @@
             </a>
             <div class="flex items-center justify-between mt-2">
               <button
-                class="add-to-cart-btn  flex items-center justify-center gap-2 bg-deeppink hover:bg-primary px-5 py-2 text-sm text-white rounded-full w-full transition-colors"
+                class="add-to-cart-btn flex items-center justify-center gap-2 bg-deeppink hover:bg-primary px-5 py-2 text-sm text-white rounded-full w-full transition-colors"
                 data-product-id="{{ product.id }}"
                 data-product-name="{{ product.name }}"
                 data-product-price="{{ product.price }}"
+                data-product-image-url="{{ product.image.url }}"
                 data-csrf="{{ csrf_token }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 stroke-current" fill="none"
                      viewBox="0 0 24 24" stroke-width="1.5">
@@ -150,13 +151,6 @@
   <!-- Newsletter / Klub Kamieni -->
 <section id="newsletter" class="relative isolate py-20 overflow-hidden">
   <!-- optional decorative mineral-wash blob -->
-  <svg aria-hidden="true"
-       class="absolute -top-24 -left-32 w-[28rem] h-[28rem] opacity-40"
-       viewBox="0 0 200 200">
-    <path fill="#D0B8A8"
-          d="M40.8,-64.3C52.2,-57.8,61,-...Z" />
-  </svg>
-
   <div class="max-w-3xl mx-auto px-6 text-center relative">
     <h2 class="font-playfair text-3xl lg:text-4xl text-dark mb-4">
       Zapisz się do <span class="text-[#C8A97E]">Klubu&nbsp;Kamieni</span>
@@ -188,16 +182,10 @@
                     focus:outline-none focus:ring-2 focus:ring-[#C8A97E] transition"
       >
       <button type="submit"
-              class="group inline-flex items-center justify-center gap-2
+              class="group inline-flex items-center justify-center
                      rounded-full bg-dark hover:bg-primary
                      px-6 py-3 text-sm font-medium text-white transition">
         <span>Zapisz się</span>
-        <!-- subtle arrow nudge -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
-             fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
-        </svg>
       </button>
     </form>
 

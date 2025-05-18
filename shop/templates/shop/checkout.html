@@ -1,16 +1,58 @@
 {% extends 'shop/base.html' %}
+{% load static %}
 
 {% block title %}Checkout – Naturalne Bransoletki{% endblock %}
 
 {% block content %}
-  <h1 class="text-3xl  text-green-800 mb-8">Dane do zamówienia</h1>
+<section class="max-w-6xl mx-auto px-4 py-16">
+  <h1 class="text-4xl font-playfair text-green-800 mb-10 text-center">Dane do zamówienia</h1>
 
-  <form method="post" class="space-y-4 bg-secondary p-6 rounded shadow">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="bg-primary text-white px-6 py-2 rounded hover:bg-green-800 transition">Zamawiam</button>
-  </form>
+  <div class="grid md:grid-cols-3 gap-12">
+    <!-- Order form -->
+    <div class="md:col-span-2 bg-white/70 backdrop-blur-sm p-6 rounded-3xl shadow-md">
+      <form method="post" class="space-y-6">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"
+                class="bg-primary hover:bg-green-800 text-white px-6 py-3 rounded-full transition w-full font-medium">
+          Zamawiam
+        </button>
+      </form>
+    </div>
 
-  <p class="mt-6"><a href="{% url 'view_cart' %}" class="text-green-600 hover:underline">← Wróć do koszyka</a></p>
+    <!-- Order summary -->
+    <div class="bg-secondary p-6 rounded-3xl shadow-md h-fit">
+      <h2 class="text-2xl font-playfair text-dark mb-4">Podsumowanie</h2>
 
+      {% if cart|length > 0 %}
+        <ul class="divide-y divide-[#E7DFD8] mb-4">
+          {% for item in cart %}
+            <li class="py-3 flex justify-between text-sm text-gray-700">
+              <span>{{ item.product.name }} × {{ item.quantity }}</span>
+              <span>{{ item.total_price }} zł</span>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="flex justify-between font-semibold text-lg text-dark border-t border-[#E7DFD8] pt-3">
+          <span>Suma:</span>
+          <span>{{ cart.get_total_price }} zł</span>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">Dostawa i podatki obliczane po przejściu do płatności.</p>
+      {% else %}
+        <p class="text-sm text-gray-600">Twój koszyk jest pusty.</p>
+      {% endif %}
+
+      <!-- Trust Badges -->
+      <div class="mt-6 text-sm text-primary space-y-2">
+        <p>✅ Ręcznie pakowane z miłością</p>
+        <p>🔒 Bezpieczne i szyfrowane płatności</p>
+        <p>📦 Ekologiczne opakowanie</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10 text-center">
+    <a href="{% url 'view_cart' %}" class="text-green-700 hover:underline">← Wróć do koszyka</a>
+  </div>
+</section>
 {% endblock %}

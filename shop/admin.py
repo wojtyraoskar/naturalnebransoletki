@@ -1,17 +1,33 @@
 from django.contrib import admin
-from .models import Product, Order, OrderItem
+from .models import Product, ProductImage, Order, OrderItem, NewsletterSubscriber
 
-class OrderItemInline(admin.TabularInline):
-    model = OrderItem
-    readonly_fields = ('product', 'price', 'quantity')
-    can_delete = False
-    extra = 0
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display  = ("id", "name", "price", "available")
+    list_filter   = ("available",)
+    search_fields = ("name", "stone_type")
+    prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    list_display = ("id", "product", "order")
+
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email', 'created_at')
-    date_hierarchy = 'created_at'
-    search_fields = ('name', 'email')
-    inlines = [OrderItemInline]
+    list_display   = ("id", "first_name", "last_name", "email", "created")
+    date_hierarchy = "created"
+    list_filter    = ("created", "city")
+    search_fields  = ("first_name", "last_name", "email", "city")
 
-admin.site.register(Product)
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ("order", "product", "quantity", "price")
+
+
+@admin.register(NewsletterSubscriber)
+class NewsletterSubscriberAdmin(admin.ModelAdmin):
+    list_display = ("email", "subscribed_at")
