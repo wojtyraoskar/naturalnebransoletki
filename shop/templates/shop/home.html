@@ -9,13 +9,13 @@
     <div class="">
       <div class="text-center">
         <h1 class="font-playfair text-5xl text-primary mb-4">Naturalna biżuteria z duszą</h1>
-        <p class="max-w-[800px]  text-lg">Ręcznie robione bransoletki z naturalnych kamieni na ekologicznych sznurkach. Minimalistyczny styl, energia minerałów i polskie rzemiosło z miłością do natury.</p>
+        <p class="max-w-[800px] text-primary_light text-lg">Ręcznie robione bransoletki z naturalnych kamieni na ekologicznych sznurkach. Minimalistyczny styl, energia minerałów i polskie rzemiosło z miłością do natury.</p>
       </div>
     </div>
     <div class="mt-16 flex justify-center md:h-[400px]">
       <div class="">
         <img
-          src="{% static 'images/main-test-1.png' %}"
+          src="{% static 'images/hero-main.png' %}"
           alt="Bransoletki"
           class="w-full h-full object-cover"
         >
@@ -34,7 +34,7 @@
     </div>
     <div class="w-full md:w-1/2 h-48">
       <img
-        src="{% static 'images/hero.png' %}"
+        src="{% static 'images/hero-about.png' %}"
         alt="Bransoletki"
         class="w-full h-full object-cover rounded-3xl shadow-md"
       >
@@ -63,7 +63,7 @@
             <img src="{% static 'images/placeholder.png' %}" alt="brak zdjęcia"
                  class="w-full h-60 object-cover opacity-40">
           {% endif %}
-            <span class="absolute top-4 left-4 bg-[#C8A97E] text-white text-[11px] tracking-widest px-3 py-1 rounded-full  uppercase">
+            <span class="absolute top-4 left-4 bg-golden_sand text-white text-[11px] tracking-widest px-3 py-1 rounded-full  uppercase">
               Nowość
             </span>
           </div>
@@ -79,7 +79,7 @@
             </a>
             <div class="flex items-center justify-between mt-2">
               <button
-                class="add-to-cart-btn flex items-center justify-center gap-2 bg-deeppink hover:bg-primary px-5 py-2 text-sm text-white rounded-full w-full transition-colors"
+                class="add-to-cart-btn flex items-center justify-center gap-2 bg-golden_sand hover:bg-golden_sand_dark px-5 py-2 text-sm text-white rounded-full w-full transition-colors"
                 data-product-id="{{ product.id }}"
                 data-product-name="{{ product.name }}"
                 data-product-price="{{ product.price }}"
@@ -105,25 +105,25 @@
   <!-- Benefits -->
   <section class="py-16">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl text-center text-green-800 mb-12">Dlaczego warto?</h2>
+      <h2 class="text-3xl text-center text-primary mb-12">Dlaczego warto?</h2>
       <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-center">
         <div>
-          <p class="text-3xl text-green-700 mb-2">🌿</p>
+          <p class="text-3xl text-primary mb-2">🌿</p>
           <h3 class=" mb-1">Naturalne materiały</h3>
           <p class="text-primary text-sm ">Używamy tylko autentycznych kamieni naturalnych.</p>
         </div>
         <div>
-          <p class="text-3xl text-green-700 mb-2">👐</p>
+          <p class="text-3xl text-primary mb-2">👐</p>
           <h3 class=" mb-1">Ręczna produkcja</h3>
           <p class="text-primary text-sm ">Każdy produkt wykonany z dbałością o detale.</p>
         </div>
         <div>
-          <p class="text-3xl text-green-700 mb-2">🚚</p>
+          <p class="text-3xl text-primary mb-2">🚚</p>
           <h3 class=" mb-1">Szybka wysyłka</h3>
           <p class="text-primary text-sm ">Twoje zamówienie dotrze do Ciebie błyskawicznie.</p>
         </div>
         <div>
-          <p class="text-3xl text-green-700 mb-2">🇵🇱</p>
+          <p class="text-3xl text-primary mb-2">🇵🇱</p>
           <h3 class=" mb-1">Polska marka</h3>
           <p class="text-primary text-sm ">Wspierasz lokalny biznes i rzemiosło.</p>
         </div>
@@ -134,7 +134,7 @@
   <!-- Testimonials -->
   <section class="bg-secondary py-16">
     <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl  text-center text-green-800 mb-12">Opinie naszych klientów</h2>
+      <h2 class="text-3xl  text-center text-primary mb-12">Opinie naszych klientów</h2>
       <div class="flex flex-col md:flex-row gap-4">
         <div class="bg-white p-6 rounded-lg shadow">
           <p class="text-gray-700 italic ">"Bransoletka przyszła pięknie zapakowana i wygląda jeszcze lepiej niż na zdjęciach!"</p>
@@ -142,7 +142,7 @@
         </div>
         <div class="bg-white p-6 rounded-lg shadow">
           <p class="text-gray-700 italic ">"Idealny prezent dla bliskiej osoby. Naturalne kamienie są naprawdę wyjątkowe."</p>
-          <p class="text-sm text-primary mt-4">– Michał T.</p>
+          <p class="text-sm text-primary mt-4">– Kasia T.</p>
         </div>
       </div>
     </div>
@@ -162,7 +162,7 @@
     {% if messages %}
     <div class="mb-4">
       {% for message in messages %}
-      <p class="text-sm {% if message.tags == 'success' %}text-green-700{% elif message.tags == 'error' %}text-red-600{% else %}text-primary{% endif %}">
+      <p class="text-sm {% if message.tags == 'success' %}text-primary{% elif message.tags == 'error' %}text-red-600{% else %}text-primary{% endif %}">
         {{ message }}
       </p>
       {% endfor %}
@@ -183,7 +183,7 @@
       >
       <button type="submit"
               class="group inline-flex items-center justify-center
-                     rounded-full bg-dark hover:bg-primary
+                     rounded-full bg-golden_sand hover:bg-golden_sand_dark
                      px-6 py-3 text-sm font-medium text-white transition">
         <span>Zapisz się</span>
       </button>

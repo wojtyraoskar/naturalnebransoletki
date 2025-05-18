@@ -28,10 +28,12 @@
               300:'#F8E1E7',400:'#E4BEC9',500:'#D19DB1'
             },
             primary:'#3A3A3A',
-            primary_darker:'#8B3A4A',
+            primary_light:'#5A4A4A',
             secondary:'#F8E1E7',
             dark:'#3D342F',
-            deeppink:'#C97C8D'
+            deeppink:'#C97C8D',
+            golden_sand:'#C8A97E',
+            golden_sand_dark:'#B28A6F'
           },
           backgroundImage: {
             'petal-aurora':
@@ -60,12 +62,12 @@
 
       <!-- Desktop nav -->
       <nav class="hidden md:flex space-x-6 items-center">
-        <a href="{% url 'about' %}"    class="hover:text-green-700">O nas</a>
-        <a href="{% url 'contact' %}"  class="hover:text-green-700">Kontakt</a>
+        <a href="{% url 'about' %}"    class="hover:text-primary">O nas</a>
+        <a href="{% url 'contact' %}"  class="hover:text-primary">Kontakt</a>
 
         <!-- Cart dropdown -->
         <div class="relative">
-          <button id="cart-button" class="relative hover:text-green-700">
+          <button id="cart-button" class="relative hover:text-primary">
             🛒
             {% if cart_item_count > 0 %}
               <span id="cart-count" class="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-deeppink text-xs text-white flex items-center justify-center">
@@ -108,9 +110,9 @@
             <div class="mt-5 border-t border-gray-200 pt-4 flex justify-between items-center">
             <span class="font-medium">Suma: {{ cart.get_total_price }} zł</span>
             <a href="{% url 'view_cart' %}"
-                class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium
-                      text-white hover:bg-primary_darker transition">
-              🛒 Do koszyka
+                class="inline-flex items-center gap-2 rounded-full bg-golden_sand px-4 py-2 text-sm font-medium
+                      text-white hover:bg-golden_sand_dark transition">
+              Do koszyka
             </a>
             </div>
             </div>
@@ -125,9 +127,9 @@
 
     <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 space-y-3">
-      <a href="{% url 'about' %}"    class="block hover:text-green-700">O nas</a>
-      <a href="{% url 'contact' %}"  class="block hover:text-green-700">Kontakt</a>
-      <a href="{% url 'view_cart' %}" class="block hover:text-green-700">🛒 Koszyk</a>
+      <a href="{% url 'about' %}"    class="block hover:text-primary">O nas</a>
+      <a href="{% url 'contact' %}"  class="block hover:text-primary">Kontakt</a>
+      <a href="{% url 'view_cart' %}" class="block hover:text-primary">🛒 Koszyk</a>
     </div>
   </header>
 
@@ -136,7 +138,7 @@
     {% if messages %}
       <div class="mb-6 max-w-3xl mx-auto text-center">
         {% for message in messages %}
-          <p class="text-sm {% if message.tags == 'success' %}text-green-700{% elif message.tags == 'error' %}text-red-600{% endif %}">
+          <p class="text-sm {% if message.tags == 'success' %}text-primary{% elif message.tags == 'error' %}text-red-600{% endif %}">
             {{ message }}
           </p>
         {% endfor %}
@@ -156,7 +158,6 @@
       <nav class="flex flex-col space-y-2">
         <a href="#" class="hover:text-white transition">Regulamin</a>
         <a href="#" class="hover:text-white transition">Polityka prywatności</a>
-        <a href="#" class="hover:text-white transition">FAQ</a>
       </nav>
 
       <div class="flex items-center md:justify-end space-x-4">
@@ -196,17 +197,17 @@
 
       <div class="flex flex-col items-center p-6 space-y-4">
         <img id="popup-product-image" src="" alt="" class="h-24 w-24 rounded-md object-cover shadow-md">
-        <h2 id="add-to-cart-title" class="text-lg font-semibold text-green-700 text-center">Produkt został dodany do koszyka!</h2>
+        <h2 id="add-to-cart-title" class="text-lg font-semibold text-primary text-center">Produkt został dodany do koszyka!</h2>
         <p id="popup-product-name"  class="font-medium"></p>
         <p id="popup-product-price" class="text-sm"></p>
 
         <div class="mt-2 flex w-full flex-col gap-3 sm:flex-row">
           <button id="continue-shopping-btn"
-                  class="flex-1 rounded-lg border bg-white px-4 py-2 text-sm font-medium hover:bg-gray-100">
+                  class="flex-1 rounded-full border bg-white px-4 py-2 text-sm font-medium hover:bg-gray-100">
             Kontynuuj zakupy
           </button>
           <a href="{% url 'view_cart' %}"
-             class="flex-1 rounded-lg bg-primary px-4 py-2 text-center text-sm font-medium text-white hover:bg-primary_darker">
+             class="flex-1 rounded-full bg-golden_sand px-4 py-2 text-center text-sm font-medium text-white hover:bg-golden_sand_dark">
             Przejdź do koszyka
           </a>
         </div>
