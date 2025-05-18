@@ -127,6 +127,12 @@ def contact(request):
 def about(request):
     return render(request, 'shop/about.html')
 
+def privacy(request):
+    return render(request, 'shop/policy.html')
+
+def terms(request):
+    return render(request, 'shop/terms.html')
+
 def product_detail(request, slug):
     """
     Single-product page.

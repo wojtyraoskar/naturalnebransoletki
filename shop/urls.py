@@ -10,6 +10,8 @@ urlpatterns = [
     path('order-confirmation/', views.order_confirmation, name='order_confirmation'),
     path('newsletter/subscribe/', views.subscribe_newsletter, name='subscribe_newsletter'),
     path('o-nas/', views.about, name='about'),
+    path('polityka/', views.privacy, name='privacy'),
+    path('regulamin/', views.terms, name='terms'),
     path('kontakt/', views.contact, name='contact'),
     path('produkt/<slug:slug>/', views.product_detail, name='product_detail'),
 ]
