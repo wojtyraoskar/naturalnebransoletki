@@ -5,129 +5,207 @@
 
 {% block content %}
   <!-- Hero -->
-
-  <section class="relative bg-cover bg-center h-[500px] hero-background m-4 rounded-2xl">
-    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-2xl">
-      <div class="text-center text-white">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Naturalna elegancja każdego dnia</h1>
-        <p class="mb-6 text-lg">Bransoletki z naturalnych kamieni tworzone z pasją</p>
-        <a href="#products" class="hover:bg-green-700 text-white px-6 py-3 rounded-lg transition">Zobacz kolekcję</a>
+  <section class="flex flex-col px-4 items-center justify-center py-16">
+    <div class="">
+      <div class="text-center">
+        <h1 class="font-playfair text-5xl text-primary mb-4">Naturalna biżuteria z duszą</h1>
+        <p class="max-w-[800px]  text-lg">Ręcznie robione bransoletki z naturalnych kamieni na ekologicznych sznurkach. Minimalistyczny styl, energia minerałów i polskie rzemiosło z miłością do natury.</p>
+      </div>
+    </div>
+    <div class="mt-16 flex justify-center md:h-[400px]">
+      <div class="">
+        <img
+          src="{% static 'images/main-test-1.png' %}"
+          alt="Bransoletki"
+          class="w-full h-full object-cover"
+        >
       </div>
     </div>
   </section>
 
+
   <!-- About -->
-  <section class="max-w-7xl mx-auto px-4 py-16 flex flex-col md:flex-row items-center gap-8">
+  <section class="max-w-6xl mx-auto px-4 py-16 flex flex-col md:flex-row items-center gap-8">
     <div class="md:w-1/2">
-      <h2 class="text-3xl font-semibold text-green-800 mb-4">O naszej marce</h2>
-      <p class="text-gray-700 leading-relaxed">
-        Naszą misją jest łączenie piękna natury z codzienną elegancją. Każda bransoletka powstaje ręcznie z najwyższej jakości kamieni naturalnych, z dbałością o każdy detal.
+      <h2 class="text-3xl font-playfair mb-4">Rękodzieło inspirowane naturą</h2>
+      <p class="text-gray-700 leading-relaxed ">
+        Wierzymy, że piękno tkwi w prostocie i autentyczności. Nasze bransoletki to połączenie naturalnych kamieni o wyjątkowych właściwościach z minimalistycznym designem. Każdy egzemplarz tworzymy ręcznie w Polsce, dbając o detale i energię, jaką niesie ze sobą każdy kamień.
       </p>
     </div>
-    <div class="md:w-1/2 h-32">
+    <div class="w-full md:w-1/2 h-48">
       <img
-        src="{% static 'images/hero3.png' %}"
+        src="{% static 'images/hero.png' %}"
         alt="Bransoletki"
-        class="w-full h-full object-cover rounded-lg shadow-md"
+        class="w-full h-full object-cover rounded-3xl shadow-md"
       >
     </div>
   </section>
 
   <!-- Product Preview -->
-<section id="products" class="bg-white py-16">
-  <div class="max-w-7xl mx-auto px-4">
-    <h2 class="text-3xl font-semibold text-center text-green-800 mb-12">Nasze Produkty</h2>
-    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-      {% for product in products %}
-      <div class="bg-gray-50 p-4 rounded-lg shadow-md text-center">
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="mb-4 w-full h-48 object-cover rounded">
-        <h3 class="text-xl font-semibold text-green-700">{{ product.name }}</h3>
-        <p class="text-gray-600 text-sm mb-2">{{ product.description|truncatewords:12 }}</p>
-        <p class="text-lg font-bold text-gray-800 mb-4">{{ product.price }} zł</p>
-        <button
-          class="add-to-cart-btn bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-          data-product-id="{{ product.id }}"
-          data-product-name="{{ product.name }}"
-          data-product-price="{{ product.price }}"
-          data-csrf="{{ csrf_token }}"
-        >
-          Dodaj do koszyka
-        </button>
+  <section id="products" class="py-20 bg-secondary">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-playfair  text-center text-dark mb-12">
+        Nasze Produkty
+      </h2>
+  
+      <div class="grid gap-y-14 gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+        {% for product in products %}
+        <article
+          class="group relative bg-white/60 backdrop-blur-sm ring-1 ring-[#E7DFD8] rounded-[2rem] shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+          <a href="{% url 'product_detail' product.slug %}" class="group">
+          
+          <!-- product image -->
+          <div class="overflow-hidden">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                 class="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105">
+          {% else %}
+            <img src="{% static 'images/placeholder.png' %}" alt="brak zdjęcia"
+                 class="w-full h-60 object-cover opacity-40">
+          {% endif %}
+            <span class="absolute top-4 left-4 bg-[#C8A97E] text-white text-[11px] tracking-widest px-3 py-1 rounded-full  uppercase">
+              Nowość
+            </span>
+          </div>
+          </a>
+          <!-- product info -->
+          <div class="p-4 flex flex-col gap-1">
+            <a href="{% url 'product_detail' product.slug %}" class="group">
+              <h3 class="font-playfair text-lg text-dark">{{ product.name }}</h3>
+              <p class="text-dark text-sm  leading-relaxed">
+                {{ product.description|truncatewords:18 }}
+              </p>
+              <span class="text-lg text-primary ">{{ product.price }} zł</span>
+            </a>
+            <div class="flex items-center justify-between mt-2">
+              <button
+                class="add-to-cart-btn  flex items-center justify-center gap-2 bg-deeppink hover:bg-primary px-5 py-2 text-sm text-white rounded-full w-full transition-colors"
+                data-product-id="{{ product.id }}"
+                data-product-name="{{ product.name }}"
+                data-product-price="{{ product.price }}"
+                data-csrf="{{ csrf_token }}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 stroke-current" fill="none"
+                     viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.25 2.25h1.5l2.103 12.617a1.125 1.125 0 0 0 1.112.983h9.93a1.125 1.125 0 0 0 1.112-.983l.902-6.02H6.75"/>
+                  <circle cx="9" cy="20" r="1.25"/>
+                  <circle cx="17" cy="20" r="1.25"/>
+                </svg>
+                <span>Dodaj do koszyka</span>
+              </button>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Benefits -->
-  <section class="bg-green-50 py-16">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold text-center text-green-800 mb-12">Dlaczego warto?</h2>
+  <section class="py-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl text-center text-green-800 mb-12">Dlaczego warto?</h2>
       <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-center">
         <div>
-          <p class="text-2xl text-green-700 mb-2">🌿</p>
-          <h3 class="font-bold mb-1">Naturalne materiały</h3>
-          <p class="text-gray-600 text-sm">Używamy tylko autentycznych kamieni naturalnych.</p>
+          <p class="text-3xl text-green-700 mb-2">🌿</p>
+          <h3 class=" mb-1">Naturalne materiały</h3>
+          <p class="text-primary text-sm ">Używamy tylko autentycznych kamieni naturalnych.</p>
         </div>
         <div>
-          <p class="text-2xl text-green-700 mb-2">👐</p>
-          <h3 class="font-bold mb-1">Ręczna produkcja</h3>
-          <p class="text-gray-600 text-sm">Każdy produkt wykonany z dbałością o detale.</p>
+          <p class="text-3xl text-green-700 mb-2">👐</p>
+          <h3 class=" mb-1">Ręczna produkcja</h3>
+          <p class="text-primary text-sm ">Każdy produkt wykonany z dbałością o detale.</p>
         </div>
         <div>
-          <p class="text-2xl text-green-700 mb-2">🚚</p>
-          <h3 class="font-bold mb-1">Szybka wysyłka</h3>
-          <p class="text-gray-600 text-sm">Twoje zamówienie dotrze do Ciebie błyskawicznie.</p>
+          <p class="text-3xl text-green-700 mb-2">🚚</p>
+          <h3 class=" mb-1">Szybka wysyłka</h3>
+          <p class="text-primary text-sm ">Twoje zamówienie dotrze do Ciebie błyskawicznie.</p>
         </div>
         <div>
-          <p class="text-2xl text-green-700 mb-2">🇵🇱</p>
-          <h3 class="font-bold mb-1">Polska marka</h3>
-          <p class="text-gray-600 text-sm">Wspierasz lokalny biznes i rzemiosło.</p>
+          <p class="text-3xl text-green-700 mb-2">🇵🇱</p>
+          <h3 class=" mb-1">Polska marka</h3>
+          <p class="text-primary text-sm ">Wspierasz lokalny biznes i rzemiosło.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Testimonials -->
-  <section class="bg-white py-16">
+  <section class="bg-secondary py-16">
     <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold text-center text-green-800 mb-12">Opinie naszych klientów</h2>
-      <div class="space-y-8">
-        <div class="bg-green-50 p-6 rounded-lg shadow">
-          <p class="text-gray-700 italic">"Bransoletka przyszła pięknie zapakowana i wygląda jeszcze lepiej niż na zdjęciach!"</p>
-          <p class="text-sm text-gray-600 mt-4">– Anna K.</p>
+      <h2 class="text-3xl  text-center text-green-800 mb-12">Opinie naszych klientów</h2>
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="bg-white p-6 rounded-lg shadow">
+          <p class="text-gray-700 italic ">"Bransoletka przyszła pięknie zapakowana i wygląda jeszcze lepiej niż na zdjęciach!"</p>
+          <p class="text-sm text-primary mt-4">– Anna K.</p>
         </div>
-        <div class="bg-green-50 p-6 rounded-lg shadow">
-          <p class="text-gray-700 italic">"Idealny prezent dla bliskiej osoby. Naturalne kamienie są naprawdę wyjątkowe."</p>
-          <p class="text-sm text-gray-600 mt-4">– Michał T.</p>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <p class="text-gray-700 italic ">"Idealny prezent dla bliskiej osoby. Naturalne kamienie są naprawdę wyjątkowe."</p>
+          <p class="text-sm text-primary mt-4">– Michał T.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Newsletter -->
-  <section id="newsletter" class="bg-green-100 py-16">
-    <div class="max-w-2xl mx-auto px-4 text-center">
-      <h2 class="text-2xl font-semibold text-green-800 mb-4">Zapisz się do newslettera</h2>
-      <p class="text-gray-700 mb-6">Otrzymuj informacje o nowościach i promocjach jako pierwszy.</p>
-      {% if messages %}
-        <div class="text-center mb-4">
-            {% for message in messages %}
-            <p class="text-sm {% if message.tags == 'success' %}text-green-700{% elif message.tags == 'error' %}text-red-600{% else %}text-gray-600{% endif %}">
-                {{ message }}
-            </p>
-            {% endfor %}
-        </div>
-        {% endif %}
-      <form action="{% url 'subscribe_newsletter' %}" method="post" class="flex flex-col sm:flex-row gap-4 justify-center">
-        {% csrf_token %}
-        <input type="email" name="email" placeholder="Twój email"
-               class="w-full sm:w-auto px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500">
-        <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800 transition">Zapisz się</button>
-      </form>
-      
+  <!-- Newsletter / Klub Kamieni -->
+<section id="newsletter" class="relative isolate py-20 overflow-hidden">
+  <!-- optional decorative mineral-wash blob -->
+  <svg aria-hidden="true"
+       class="absolute -top-24 -left-32 w-[28rem] h-[28rem] opacity-40"
+       viewBox="0 0 200 200">
+    <path fill="#D0B8A8"
+          d="M40.8,-64.3C52.2,-57.8,61,-...Z" />
+  </svg>
+
+  <div class="max-w-3xl mx-auto px-6 text-center relative">
+    <h2 class="font-playfair text-3xl lg:text-4xl text-dark mb-4">
+      Zapisz się do <span class="text-[#C8A97E]">Klubu&nbsp;Kamieni</span>
+    </h2>
+    <p class="text-dark mb-8">
+      Zgarnij <strong>10 % rabatu</strong> na pierwsze zamówienie · 2 maile w miesiącu, zero spamu
+    </p>
+
+    {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+      <p class="text-sm {% if message.tags == 'success' %}text-green-700{% elif message.tags == 'error' %}text-red-600{% else %}text-primary{% endif %}">
+        {{ message }}
+      </p>
+      {% endfor %}
     </div>
-  </section>
+    {% endif %}
+
+    <form action="{% url 'subscribe_newsletter' %}"
+          method="post"
+          class="relative mx-auto max-w-lg flex flex-col sm:flex-row gap-3 items-center"
+          data-analytics="newsletter_signup">
+      {% csrf_token %}
+      <label for="id_email" class="sr-only">Adres e-mail</label>
+      <input id="id_email" name="email" type="email" required
+             placeholder="Twój email"
+             class="flex-1 rounded-full border border-[#E7DFD8] bg-white/70
+                    backdrop-blur-sm py-3 px-6 text-sm placeholder-[#B7A59A]
+                    focus:outline-none focus:ring-2 focus:ring-[#C8A97E] transition"
+      >
+      <button type="submit"
+              class="group inline-flex items-center justify-center gap-2
+                     rounded-full bg-dark hover:bg-primary
+                     px-6 py-3 text-sm font-medium text-white transition">
+        <span>Zapisz się</span>
+        <!-- subtle arrow nudge -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
+             fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
+        </svg>
+      </button>
+    </form>
+
+    <p class="mt-3 text-xs text-[#B7A59A]">
+      Możesz wypisać się w każdej chwili. Szanujemy Twoją prywatność.
+    </p>
+  </div>
+</section>
   
 
 {% endblock %}

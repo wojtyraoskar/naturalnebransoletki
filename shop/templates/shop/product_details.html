@@ -1,0 +1,141 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}{{ product.name }} – Naturalne Bransoletki{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-4 py-12">
+
+  <!-- breadcrumb -->
+  <nav class=" text-sm mb-6">
+    <a href="{% url 'home' %}" class="hover:underline">Strona główna</a>
+    <span class="mx-1">/</span>
+    <a href="#products" class="hover:underline">Produkty</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-600">{{ product.name }}</span>
+  </nav>
+
+  <div class="grid md:grid-cols-2 gap-10">
+
+    <!-- gallery -->
+    <div>
+      <img id="main-img" src="{{ product.image.url }}"
+           alt="{{ product.name }}" class="w-full h-[480px] object-cover rounded-3xl shadow-md">
+      {% if product.productimage_set.all %}
+      <div class="flex gap-3 mt-4">
+        {% for img in product.productimage_set.all %}
+        <button data-full="{{ img.image.url }}" class="thumb w-20 h-20 overflow-hidden rounded-xl ring-2 ring-transparent hover:ring-[#C8A97E]">
+          <img src="{{ img.image.url }}" class="w-full h-full object-cover" alt="{{ product.name }} {{ forloop.counter }}">
+        </button>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- info -->
+    <div class="flex flex-col gap-6">
+      <h1 class="text-3xl font-playfair">{{ product.name }}</h1>
+      {% if product.short_description %}
+        <p class="text-lg">{{ product.short_description }}</p>
+      {% endif %}
+      <span class="text-2xl text-[#C8A97E]">{{ product.price }} zł</span>
+
+      <!-- quantity + ATC -->
+      <form action="{% url 'add_to_cart' product.id %}" method="post" class="flex items-center gap-4">
+        <button type="submit" class="bg-deeppink hover:bg-primary text-white px-8 py-3 rounded-full transition-colors">
+          Dodaj do koszyka
+        </button>
+      </form>
+
+      <!-- USPs -->
+      <ul class="text-sm leading-relaxed space-y-1">
+        <li>• Naturalne kamienie: {{ product.stone_type }}</li>
+        <li>• Regulowany sznurek (15–22 cm)</li>
+        <li>• Ręcznie wykonane w Polsce</li>
+        <li>• Eco-friendly opakowanie bez plastiku</li>
+      </ul>
+
+      <!-- accordion / tabs -->
+      <div x-data="{tab:'opis'}" class="mt-8">
+        <nav class="flex gap-6 border-b border-[#E7DFD8]">
+          <template x-for="item in [['opis','Opis'],['szcz','Szczegóły'],['wysylka','Wysyłka & Zwroty'],['pieleg','Pielęgnacja']]">
+            <button
+              :class="{'border-primary text-primary':tab===item[0]}"
+              @click="tab=item[0]"
+              class="pb-2 border-b-2 font-medium">
+              <span x-text="item[1]"></span>
+            </button>
+          </template>
+        </nav>
+
+        <div class="pt-6 text-sm leading-relaxed">
+          <div x-show="tab==='opis'">
+            {{ product.description|linebreaks }}
+          </div>
+
+          <div x-show="tab==='szcz'">
+            <table>
+              <tr><td class="pr-4 py-1">Kamień</td><td>{{ product.stone_type }}</td></tr>
+              <tr><td class="pr-4 py-1">Średnica koralika</td><td>{{ product.stone_size_mm }} mm</td></tr>
+              <tr><td class="pr-4 py-1">Waga</td><td>{{ product.weight_g }} g</td></tr>
+              <tr><td class="pr-4 py-1">Rękodzieło</td><td>tak – każdy egzemplarz unikatowy</td></tr>
+            </table>
+          </div>
+
+          <div x-show="tab==='wysylka'">
+            <p>Darmowa dostawa od 180 zł • wysyłka z Polski w 24 h<br>
+               Zwroty i wymiana do 30 dni.</p>
+          </div>
+
+          <div x-show="tab==='pieleg'">
+            <p>Unikaj kontaktu z perfumami, chemią i wodą morską.<br>
+               Przechowuj w bawełnianym woreczku dołączonym do eco-opakowania.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- trust badges -->
+      <div class="flex gap-4 mt-6 text-sm">
+        <span class="inline-flex items-center gap-2">✅ Naturalne kamienie</span>
+        <span class="inline-flex items-center gap-2">✋ Handmade</span>
+        <span class="inline-flex items-center gap-2">🌱 Eco pack</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- related -->
+<section class="bg-secondary py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-2xl font-playfair mb-8">Może Ci się spodobać</h2>
+    <div class="grid gap-y-14 gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+      {% for rp in related_products %}
+      <article>
+        <a href="{% url 'product_detail' rp.slug %}">
+          <img src="{{ rp.image.url }}" alt="{{ rp.name }}" class="w-full h-48 object-cover rounded-xl mb-3">
+          <h3 class="font-playfair text-sm">{{ rp.name }}</h3>
+          <span class="text-sm">{{ rp.price }} zł</span>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  /* gallery thumb swap */
+  document.querySelectorAll('.thumb').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('main-img').src = btn.dataset.full;
+    });
+  });
+
+  /* qty picker */
+  const inc=document.getElementById('increase');
+  const dec=document.getElementById('decrease');
+  const qty=document.getElementById('id_qty');
+  inc?.addEventListener('click',()=>qty.value=parseInt(qty.value||1)+1);
+  dec?.addEventListener('click',()=>qty.value=Math.max(1,parseInt(qty.value||1)-1));
+</script>
+{% endblock %}

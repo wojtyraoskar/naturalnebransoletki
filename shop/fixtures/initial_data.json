@@ -1,0 +1,104 @@
+[
+{
+  "model": "shop.product",
+  "pk": 1,
+  "fields": {
+    "name": "Ametyst · Harmonia",
+    "slug": "ametyst-harmonia",
+    "image": "product_images/ametyst_main.png",
+    "price": "119.00",
+    "description": "Ręcznie wiązana bransoletka z ametystem. Kamień harmonii i spokoju.",
+    "short_description": "Harmonia i wyciszenie",
+    "stone_type": "ametyst",
+    "stone_size_mm": 4,
+    "weight_g": "6.5",
+    "available": true
+  }
+},
+{
+  "model": "shop.product",
+  "pk": 2,
+  "fields": {
+    "name": "Turmalin · Spokój",
+    "slug": "turmalin-spokoj",
+    "image": "product_images/turmalin_main.png",
+    "price": "129.00",
+    "description": "Naturalny turmalin zielony na regulowanym, ekologicznym sznurku.",
+    "short_description": "Ochrona i równowaga",
+    "stone_type": "turmalin",
+    "stone_size_mm": 4,
+    "weight_g": "6.3",
+    "available": true
+  }
+},
+{
+  "model": "shop.product",
+  "pk": 3,
+  "fields": {
+    "name": "Kwarc Różowy · Miłość",
+    "slug": "kwarc-rozowy-milosc",
+    "image": "product_images/kwarc_main.png",
+    "price": "109.00",
+    "description": "Delikatny kwarc różowy – kamień bezwarunkowej miłości.",
+    "short_description": "Delikatność i czułość",
+    "stone_type": "kwarc różowy",
+    "stone_size_mm": 4,
+    "weight_g": "6.1",
+    "available": true
+  }
+},
+{
+  "model": "shop.productimage",
+  "pk": 1,
+  "fields": {
+    "product": 1,
+    "image": "product_images/ametyst_side.png",
+    "order": 0
+  }
+},
+{
+  "model": "shop.productimage",
+  "pk": 2,
+  "fields": {
+    "product": 1,
+    "image": "product_images/ametyst_life.png",
+    "order": 1
+  }
+},
+{
+  "model": "shop.productimage",
+  "pk": 3,
+  "fields": {
+    "product": 2,
+    "image": "product_images/turmalin_side.png",
+    "order": 0
+  }
+},
+{
+  "model": "shop.productimage",
+  "pk": 4,
+  "fields": {
+    "product": 2,
+    "image": "product_images/turmalin_life.png",
+    "order": 1
+  }
+},
+{
+  "model": "shop.productimage",
+  "pk": 5,
+  "fields": {
+    "product": 3,
+    "image": "product_images/kwarc_side.png",
+    "order": 0
+  }
+},
+{
+  "model": "shop.productimage",
+  "pk": 6,
+  "fields": {
+    "product": 3,
+    "image": "product_images/kwarc_life.png",
+    "order": 1
+  }
+}
+]

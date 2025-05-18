@@ -14,7 +14,7 @@ from django.http import JsonResponse
 
 
 def home(request):
-    products = Product.objects.filter(is_active=True)
+    products = Product.objects.filter(available=True)
     return render(request, 'shop/home.html', {'products': products})
 
 
@@ -120,3 +120,26 @@ def contact(request):
 
 def about(request):
     return render(request, 'shop/about.html')
+
+def product_detail(request, slug):
+    """
+    Single-product page.
+
+    • Fetch the product by its slug (404 if not found or not available)
+    • Pull 2-3 related items that share the same stone type for the
+      “Może Ci się spodobać” section.
+    """
+    product = get_object_or_404(Product, slug=slug, available=True)
+
+    # small ‘related products’ carousel/grid
+    related_products = (
+        Product.objects
+               .filter(stone_type=product.stone_type)
+               .exclude(id=product.id)[:3]
+    )
+
+    return render(
+        request,
+        "shop/product_details.html",
+        {"product": product, "related_products": related_products},
+    )
